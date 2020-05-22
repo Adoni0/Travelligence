@@ -1,0 +1,49 @@
+ip address => state => medium income
+language setting => filter countries
+
+Form
+Name => nationality/associated culture
+		 => age
+
+Photos => MS Computer Vision => interests
+Willing to go somewhere you don't know the language? => filter by language
+New culture, explore your own? 
+
+Profile {
+	location: ____,
+	wealth: ______,
+	culture: ______,
+	lang: ______,
+	interests: _____,
+	something_new: _______
+}
+
+diarmuid = {
+	location: CA,
+	wealth: { // 0.5
+		ca_medium_income: .75,
+		age: .25
+	},
+	lang: { // based on their choice in form, filter using this
+		EN, ES
+	},
+	associated_culture: { // based on their choice in form, filter using this
+		IE, 
+		UK
+	},
+	interests: [ // per category + 0.33
+		outdoor: 0.667,
+		food: 0.33
+	]
+}
+
+to match => 
+	first_filter: cost
+	secondary: interets
+
+country profile: {
+	categories: ________, // interests
+	cost: _______, // wealth // 
+	lang: ______,
+}
+
