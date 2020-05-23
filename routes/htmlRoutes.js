@@ -22,6 +22,18 @@ module.exports = function(app) {
     });
   });
 
+  // Lang and Culture Test
+  app.get("/lang-culture", function(req, res) {
+    console.log(req.headers["accept-language"]);
+    res.render("lang", {
+      lang: req.headers["accept-language"]
+    });
+  });
+
+  app.post("/lang-culture", function() {
+    console.log("post test");
+  });
+
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
     res.render("404");
