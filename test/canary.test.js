@@ -1,3 +1,5 @@
+var describe = require('mocha').describe
+var it = require('mocha').it
 var expect = require('chai').expect
 
 describe('canary test', function () {
