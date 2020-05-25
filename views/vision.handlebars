@@ -1,5 +1,9 @@
-<form action="/action_page.php">
-    <label for="img">Select image:</label>
-    <input type="file" id="img" name="img" accept="image/*">
-    <input type="submit">
+<form id="images" method="post">
+    <div>
+        <label for="image_uploads">Choose images to upload (PNG, JPG)</label>
+        <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple>
+    </div>
+    <div>
+        <button id="submitImages">Submit</button>
+    </div>
 </form>
