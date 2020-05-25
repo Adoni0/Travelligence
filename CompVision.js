@@ -58,8 +58,8 @@ function computerVision() {
                 return categories.map(cat => `${cat.name} (${cat.score.toFixed(2)})`).join(', ');
             }
             // outdoor_ indoor_ food_ drink_ building_ animal_ plant_. If not default destination
-            const categoryURLImage = 'https://moderatorsampleimages.blob.core.windows.net/samples/sample16.png';
-
+            // const categoryURLImage = 'https://moderatorsampleimages.blob.core.windows.net/samples/sample16.png';
+            const categoryURLImage = __dirname + "/public/userImages/mountain.jpg";
             // Analyze URL image
             console.log('Analyzing category in image...', categoryURLImage.split('/').pop());
             let categories = (await computerVisionClient.analyzeImage(categoryURLImage)).categories;

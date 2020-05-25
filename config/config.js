@@ -1,9 +1,9 @@
-{
+module.exports = {
   "development": {
     "username": "root",
-    "password": "",
+    "password": process.env.PASSWORD,
     "database": "vacation_db",
-    "host": "localhost",
+    "host": "127.0.0.1",
     "port": 3306,
     "dialect": "mysql"
   },
