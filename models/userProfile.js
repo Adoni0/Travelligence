@@ -8,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     location: DataTypes.STRING,
     wealth: DataTypes.DECIMAL(5, 1),
-    cost_bracket: DataTypes.STRING, //luxury, moderate, economy
+    cost_bracket: DataTypes.STRING, // luxury, moderate, economy
     culture: DataTypes.STRING,
     language: DataTypes.STRING,
     interests: DataTypes.DECIMAL(5, 2),
