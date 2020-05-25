@@ -57,8 +57,8 @@ function computerVision() {
                 categories.sort((a, b) => b.score - a.score);
                 return categories.map(cat => `${cat.name} (${cat.score.toFixed(2)})`).join(', ');
             }
-            //const categoryURLImage = 'https://moderatorsampleimages.blob.core.windows.net/samples/sample16.png';
-            const categoryURLImage = 'https://www.rollingstone.com/wp-content/uploads/2018/06/rs-217060-GettyImages-490201898.jpg';
+            // outdoor_ indoor_ food_ drink_ building_ animal_ plant_. If not default destination
+            const categoryURLImage = 'https://moderatorsampleimages.blob.core.windows.net/samples/sample16.png';
 
             // Analyze URL image
             console.log('Analyzing category in image...', categoryURLImage.split('/').pop());
