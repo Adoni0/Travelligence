@@ -18,10 +18,10 @@ module.exports = function (sequelize, DataTypes) {
 }
 
 //   Profile {
-// 	location: ____,
-// 	wealth: ______,
-// 	culture: ______,
-// 	lang: ______,
-// 	interests: _____,
-// 	something_new: _______
+//  location: ____,
+//  wealth: ______,
+//  culture: ______,
+//  lang: ______,
+//  interests: _____,
+//  something_new: _______
 // }
