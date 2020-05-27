@@ -6,7 +6,7 @@ $('#trip-form').on('submit', function (event) {
     name: $('#user-name')
       .val()
       .trim()
-  };
+  }
 
   $.ajax({
     url: `https://api.agify.io?name=${userInfo.name}`,
@@ -16,8 +16,7 @@ $('#trip-form').on('submit', function (event) {
     //   if (response.age !== '') {
     //     userAges.push(response.age)
     //   };
-    
-  });
+  })
 
   $.ajax('/agify', {
     method: 'POST',
@@ -25,4 +24,4 @@ $('#trip-form').on('submit', function (event) {
   }).then(data => {
     console.log(data)
   })
-});
+})
