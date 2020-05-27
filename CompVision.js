@@ -46,7 +46,7 @@ if (!key) { throw new Error(key, endpoint) }
 const computerVisionClient = new ComputerVisionClient(
   new ApiKeyCredentials({ inHeader: { 'Ocp-Apim-Subscription-Key': key } }), endpoint)
 
-function computerVision () {
+module.exports = function computerVision (file) {
   async.series([
     async function () {
       // Formats the image categories
@@ -56,7 +56,8 @@ function computerVision () {
       }
       // outdoor_ indoor_ food_ drink_ building_ animal_ plant_. If not default destination
       // const categoryURLImage = 'https://moderatorsampleimages.blob.core.windows.net/samples/sample16.png';
-      const categoryURLImage = __dirname + '/public/userImages/mountain.jpg'
+      const categoryURLImage = __dirname + '/userImages/' + file
+
       // Analyze URL image
       console.log('Analyzing category in image...', categoryURLImage.split('/').pop())
       const categories = (await computerVisionClient.analyzeImage(categoryURLImage)).categories
@@ -72,4 +73,4 @@ function computerVision () {
   })
 }
 
-computerVision()
+// computerVision()

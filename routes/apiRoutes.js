@@ -1,6 +1,17 @@
-var db = require('../models');
-var multer = require('multer');
-var upload = multer({ dest: 'public/userImages' });
+var db = require('../models')
+var computerVision = require('../CompVision.js')
+var multer = require('multer')
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/userImages')
+  },
+  filename: function (req, file, cb) {
+    const ext = file.mimetype.replace(/image\//gi, '.')
+    cb(null, Date.now() + ext)
+  }
+})
+
+var upload = multer({ storage: storage })
 
 module.exports = function (app) {
   app.post('/api/travelligence', upload.array('interests-images'), (req, res) => {
@@ -22,8 +33,12 @@ module.exports = function (app) {
 
     console.log(result);
 
+    result.images.forEach(function (image) {
+      console.log(image.path)
+
+      computerVision(image.filename)
+    })
+
     res.redirect('/');
   });
-
-
 }
