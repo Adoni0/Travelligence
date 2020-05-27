@@ -1,4 +1,5 @@
 var db = require('../models')
+var computerVision = require('../CompVision.js')
 var multer = require('multer')
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -32,6 +33,8 @@ module.exports = function (app) {
 
     result.images.forEach(function (image) {
       console.log(image.path)
+
+      computerVision(image.filename)
     })
 
     console.log(result)
