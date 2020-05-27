@@ -3,6 +3,9 @@ var computerVision = require('../CompVision.js')
 var axios = require('axios')
 var geoip = require('geoip-lite')
 var multer = require('multer')
+var geoip = require('geoip-lite')
+var mediumIncome = require('../mediumIncome.js');
+var axios = require('axios')
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/userImages')
@@ -31,21 +34,44 @@ module.exports = function (app) {
       culture: culture,
       ip: ip,
       langSetting: langSetting,
-      // geo: geoip.lookup(this.ip)
-      geo: geoip.lookup('97.97.185.240')
-    }
+      geo: geoip.lookup('207.97.227.239')
+    };
 
-    axios.get(`https://api.agify.io?name=${result.name}&country_id=${result.geo.country}`).then(function (data) {
-      console.log(data)
-      result.age = data.data.age
-      console.log(result)
+    axios.get(`https://api.agify.io?name=${result.name}&country_id=${result.geo.country}`).then((data) => {
+      console.log(data);
+      result.age = data.data.age.toFixed(2)
     })
 
-    // result.images.forEach(function (image) {
-    //   console.log(image.path)
+    for (var i = 0; i < mediumIncome.length; i++) {
+      if (result.geo.region === mediumIncome[i].location) {
+        // console.log(MediumIncome[i].income)
+        var income = mediumIncome[i].income
 
-    //   computerVision(image.filename)
-    // })
+         result.wealth = (income + result.age) / 2;
+      } else {
+        console.log('Could not find your state')
+      }
+    }
+
+    db.Profile.create({
+      location: result.geo.region,
+      wealth: result.wealth,
+
+      where: {
+        id: req.body.id // have to give value of {{id}} to section of handlebars
+      }
+
+    }).catch(function (error) {
+      if (error) throw error
+    })
+
+    console.log(result);
+
+    result.images.forEach(function (image) {
+      console.log(image.path)
+
+      computerVision(image.filename)
+    })
 
     res.redirect('/')
   })
