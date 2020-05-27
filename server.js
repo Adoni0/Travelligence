@@ -15,6 +15,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(express.static('public'))
 
+console.log(__dirname)
+
 // Handlebars
 app.engine(
   'handlebars',
@@ -31,7 +33,7 @@ app.use(passport.session());
 require('./routes/apiRoutes')(app)
 require('./routes/htmlRoutes')(app)
 
-var syncOptions = { force: false }
+var syncOptions = { force: true }
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
