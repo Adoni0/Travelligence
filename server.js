@@ -3,7 +3,8 @@ var morgan = require('morgan')
 var express = require('express')
 var exphbs = require('express-handlebars')
 // Requiring passport as we've configured it
-var passport = require("./config/passport");
+var passport = require('./config/passport')
+var session = require('express-session')
 var db = require('./models')
 
 var app = express()
@@ -26,9 +27,9 @@ app.engine(
 )
 app.set('view engine', 'handlebars')
 // We need to use sessions to keep track of our user's login status
-app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }))
+app.use(passport.initialize())
+app.use(passport.session())
 // Routes
 require('./routes/apiRoutes')(app)
 require('./routes/htmlRoutes')(app)
