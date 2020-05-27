@@ -6,16 +6,34 @@ module.exports = function (sequelize, DataTypes) {
       autoInrement: true,
       primaryKey: true
     },
-    location: DataTypes.STRING,
-    wealth: DataTypes.DECIMAL(5, 1),
-    cost_bracket: DataTypes.STRING, // luxury, moderate, economy
-    culture: DataTypes.STRING,
-    language: DataTypes.STRING,
-    interests: DataTypes.DECIMAL(5, 2),
-    somethingNew: DataTypes.BOOLEAN
+    location:{
+        type: DataTypes.STRING,
+        allowNull: false
+    }, 
+    wealth: {
+        type: DataTypes.DECIMAL(5, 1),
+        allowNull: false
+    }, 
+    // cost_bracket: DataTypes.STRING, // luxury, moderate, economy
+    culture: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    language: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    interests: {
+        type: DataTypes.DECIMAL(5, 2),
+        allowNull: false
+    },
+    somethingNew: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    } 
   })
   return Profile
-}
+};
 
 //   Profile {
 //  location: ____,
