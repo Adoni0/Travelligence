@@ -1,5 +1,7 @@
 var db = require('../models')
 var computerVision = require('../CompVision.js')
+var axios = require('axios')
+var geoip = require('geoip-lite')
 var multer = require('multer')
 var geoip = require('geoip-lite')
 var mediumIncome = require('../mediumIncome.js');
