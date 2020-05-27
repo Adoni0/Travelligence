@@ -1,3 +1,142 @@
+/* ========== VARIABLES ========== */
+:root {
+  --color-yellow-light: #f7e287;
+  --color-yellow: #f7d11e;
+  --color-red: #ed1a2d;
+  --color-red-dark: #b81b35;
+  --color-red-light: #ee3755;
+  --color-blue: #0091ff;
+  --color-blue-light1: #9fd6ff;
+  --color-blue-light2: #e9f6fd;
+  --color-white: #fff;
+  --color-black: #333;
+  --color-grey1: #272727;
+  --color-grey2: #c1c1c1;
+  --color-grey3: #6a6a6a;
+  --color-grey-light: #eee;
+  --font-heading: 'Montserrat', sans-serif;
+  --font-default: 'Roboto', sans-serif;
+}
+
+/* ========== COMMON ========== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 50%; /* 8px/16px = 50% -> 1rem = 8px */
+}
+
+body {
+  font-family: var(--font-default);
+  min-height: 100vh;
+  line-height: 1.6;
+  color: var(--color-black);
+  position: relative;
+  font-size: 1.6rem;
+  background: var(--color-blue-light2);
+}
+
+a {
+  text-decoration: none;
+}
+
+a:active,
+a:visited {
+  color: var(--color-blue);
+}
+
+a:hover,
+a:focus {
+  color: var(--color-blue-light1);
+}
+
+ul {
+  list-style: none;
+}
+
+/* ========== HEADINGS ========== */
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+}
+
+h1 {
+  width: 100%;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  color: var(--color-white);
+}
+
+h2 {
+  width: 100%;
+  padding-bottom: 2rem;
+  font-size: 3rem;
+  line-height: 1;
+  text-transform: capitalize;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-blue);
+}
+
+/* ========== BUTTONS ========== */
+.btn-submit {
+  padding: 1rem 4rem;
+  font-size: 1.8rem;
+  color: var(--color-white);
+  border-radius: 3rem;
+  transition: background-color .3s;
+  cursor: pointer;
+  background: var(--color-blue);
+  border: 3px solid var(--color-white);
+  box-shadow: 0 0 6px rgba(0, 0, 0, .5);
+}
+
+.btn-submit:hover,
+.btn-submit:focus {
+  background-color: var(--color-blue-light1);
+}
+
+
+/* ========== MAIN CONTENTS ========== */
+.container {
+  width: calc(100% - 4rem);
+  max-width: 960px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 2rem 0;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+/* ========== FORM ========== */
+.form-group {
+  margin-bottom: 3rem;
+}
+
 .list-group-item {
   line-height: 2.5;
+}
+
+
+@media screen and (min-width: 801px) {
+  html {
+    font-size: 62.5%; /* 10px/16px = 62.5% -> 1rem = 10px */
+  }
 }
