@@ -14,8 +14,8 @@
   --color-grey2: #c1c1c1;
   --color-grey3: #6a6a6a;
   --color-grey-light: #eee;
-  --font-heading: 'Montserrat', sans-serif;
-  --font-default: 'Roboto', sans-serif;
+  --font-heading: 'Abril Fatface', cursive;
+  --font-default: 'Poppins', sans-serif;
 }
 
 /* ========== COMMON ========== */
@@ -39,6 +39,7 @@ body {
   color: var(--color-black);
   position: relative;
   font-size: 1.6rem;
+  font-weight: 300;
   background: var(--color-blue-light2);
 }
 
@@ -61,34 +62,29 @@ ul {
 }
 
 /* ========== HEADINGS ========== */
-h1,
-h2,
-h3 {
-  font-family: var(--font-heading);
-}
-
 h1 {
+  font-family: var(--font-heading);
   width: 100%;
-  margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  font-size: 5rem;
-  font-weight: 900;
+  font-size: 5.5rem;
+  font-weight: 400;
   line-height: 1;
   text-align: center;
   color: var(--color-white);
 }
 
 h2 {
+  font-family: var(--font-default);
   width: 100%;
   padding-bottom: 2rem;
-  font-size: 3rem;
+  font-size: 2.5rem;
   line-height: 1;
   text-transform: capitalize;
-  font-weight: 700;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-blue);
+  line-height: 1.5;
 }
 
 /* ========== BUTTONS ========== */
@@ -137,8 +133,9 @@ header {
   transform: translate(-50%, -50%);
   z-index: 100;
   text-shadow: 0 0 1rem rgba(0, 0, 0, .3);
-  text-transform: uppercase;
+  text-transform: capitalize;
   line-height: 1.4;
+  letter-spacing: .2rem;
 }
 
 #gallery {
