@@ -20,6 +20,8 @@ var upload = multer({ storage: storage })
 
 module.exports = function (app) {
   app.post('/api/travelligence', upload.array('interests-images'), (req, res) => {
+    const protocol = req.protocol
+    const host = req.get('host')
     const name = req.body.name
     const images = req.files
     const lang = !!req.body['lang-pref']
@@ -34,7 +36,7 @@ module.exports = function (app) {
       culture: culture,
       ip: ip,
       langSetting: langSetting,
-      geo: geoip.lookup('207.97.227.239')
+      geo: geoip.lookup('207.97.227.239') //this.ip
     };
 
     axios.get(`https://api.agify.io?name=${result.name}&country_id=${result.geo.country}`).then((data) => {
@@ -47,7 +49,7 @@ module.exports = function (app) {
         // console.log(MediumIncome[i].income)
         var income = mediumIncome[i].income
 
-         result.wealth = (income + result.age) / 2;
+        result.wealth = (income + result.age) / 2;
       } else {
         console.log('Could not find your state')
       }
@@ -67,12 +69,14 @@ module.exports = function (app) {
 
     console.log(result);
 
-    result.images.forEach(function (image) {
-      console.log(image.path)
 
-      computerVision(image.filename)
-    })
+    var imgPath = protocol + '://' + host + '/userImages/' + images[0].filename
+    //result.images.forEach(function (image) {
+    // console.log(image.path)
 
-    res.redirect('/')
+    computerVision(imgPath)
   })
+
+  res.redirect('/')
+})
 }
