@@ -46,6 +46,10 @@ module.exports = function (app) {
         geo: geoip.lookup('207.97.227.239') // this.ip
       }
 
+      userProfile.images = userProfile.images.map((item) => {
+        return protocol + '://' + host + '/userImages/' + item.filename
+      })
+
       for (var i = 0; i < mediumIncome.length; i++) {
         if (userProfile.geo.region === mediumIncome[i].location) {
           // console.log(MediumIncome[i].income)
@@ -57,35 +61,65 @@ module.exports = function (app) {
           } else {
             userProfile.wealthDetails.medianIncome = 1
           }
-        } 
+        }
       }
 
       axios.get(`https://api.agify.io?name=${userProfile.name}&country_id=${userProfile.geo.country}`).then((data) => {
-          // console.log(data)
-          userProfile.age = Math.floor((data.data.age) * .7)
-          // result.age = data.data.age.toFixed(2)
-          if (userProfile.age <= 35) {
-            userProfile.wealthDetails.age = 0.34
-          } else if (userProfile.age <= 55) {
-            userProfile.wealthDetails.age = 0.67
-          } else {
-            userProfile.wealthDetails.age = 1
-          }
+        // console.log(data)
+        userProfile.age = Math.floor((data.data.age) * .7)
+        // result.age = data.data.age.toFixed(2)
+        if (userProfile.age <= 35) {
+          userProfile.wealthDetails.age = 0.34
+        } else if (userProfile.age <= 55) {
+          userProfile.wealthDetails.age = 0.67
+        } else {
+          userProfile.wealthDetails.age = 1
+        }
 
-          userProfile.wealth = (userProfile.wealthDetails.age + userProfile.wealthDetails.medianIncome) / 2
+        userProfile.wealth = (userProfile.wealthDetails.age + userProfile.wealthDetails.medianIncome) / 2
 
-          axios.get(`https://api.nationalize.io?name=${userProfile.name}`).then((data) => {
-            
-            data.data.country.forEach((country) => {
-              userProfile.associatedCulture.push(country.country_id)
-            })
-            
-            axios.get(`https://api.genderize.io?name=${userProfile.name}&country_id=${userProfile.geo.country}`).then((data) => {
-              userProfile.gender = data.data.gender
+        axios.get(`https://api.nationalize.io?name=${userProfile.name}`).then((data) => {
+
+          data.data.country.forEach((country) => {
+            userProfile.associatedCulture.push(country.country_id)
+          })
+
+          axios.get(`https://api.genderize.io?name=${userProfile.name}&country_id=${userProfile.geo.country}`).then((data) => {
+            userProfile.gender = data.data.gender
+
+
+            // iterate over array of images
+            // finish each call of computerVision
+            // store result in userProfile
+            // once this is all complete res.render()
+
+            async function getCategories() {
+              let test = await computerVision(userProfile.images[0])
+              console.log(test)
+            }
+
+            getCategories().then(() => {
               console.log(userProfile)
+              res.redirect('/')
             })
+
+
+
+
+
+            // getCategories()
+
+            // var count = 0
+
+            // while  (count < userProfile.images) {
+            //   computerVision(userProfile[count], count)
+            // }
+
+            // console.log(userProfile)
+            // res.redirect('/')
           })
         })
+      })
 
       // db.Profile.create({
       //   location: result.geo.region,
@@ -106,8 +140,6 @@ module.exports = function (app) {
       // // console.log(image.path)
 
       // computerVision(imgPath)
-
-      res.redirect('/')
     }
   )
 }
