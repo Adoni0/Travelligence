@@ -1,12 +1,10 @@
-var db = require('../models')
-var computerVision = require('../CompVision.js')
-var axios = require('axios')
-var geoip = require('geoip-lite')
-var multer = require('multer')
-var geoip = require('geoip-lite')
-var mediumIncome = require('../mediumIncome.js');
-var axios = require('axios')
-var storage = multer.diskStorage({
+const db = require('../models')
+const computerVision = require('../CompVision.js')
+const axios = require('axios')
+const geoip = require('geoip-lite')
+const multer = require('multer')
+const mediumIncome = require('../mediumIncome.js')
+const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/userImages')
   },
@@ -37,10 +35,10 @@ module.exports = function (app) {
       ip: ip,
       langSetting: langSetting,
       geo: geoip.lookup('207.97.227.239') //this.ip
-    };
+    }
 
     axios.get(`https://api.agify.io?name=${result.name}&country_id=${result.geo.country}`).then((data) => {
-      console.log(data);
+      console.log(data)
       result.age = data.data.age.toFixed(2)
     })
 
@@ -49,25 +47,25 @@ module.exports = function (app) {
         // console.log(MediumIncome[i].income)
         var income = mediumIncome[i].income
 
-        result.wealth = (income + result.age) / 2;
+        result.wealth = (income + result.age) / 2
       } else {
         console.log('Could not find your state')
       }
     }
 
-    db.Profile.create({
-      location: result.geo.region,
-      wealth: result.wealth,
+    // db.Profile.create({
+    //   location: result.geo.region,
+    //   wealth: result.wealth,
 
-      where: {
-        id: req.body.id // have to give value of {{id}} to section of handlebars
-      }
+    //   where: {
+    //     id: req.body.id // have to give value of {{id}} to section of handlebars
+    //   }
 
-    }).catch(function (error) {
-      if (error) throw error
-    })
+    // }).catch(function (error) {
+    //   if (error) throw error
+    // })
 
-    console.log(result);
+    console.log(result)
 
 
     var imgPath = protocol + '://' + host + '/userImages/' + images[0].filename
@@ -75,8 +73,8 @@ module.exports = function (app) {
     // console.log(image.path)
 
     computerVision(imgPath)
-  })
 
-  res.redirect('/')
-})
+    res.redirect('/')
+  })
 }
+
