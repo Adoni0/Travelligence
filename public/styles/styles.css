@@ -86,7 +86,7 @@ h2 {
 }
 
 /* ========== BUTTONS ========== */
-.btn-submit {
+.btn {
   margin: 0 auto;
   padding: 1rem 4rem;
   font-size: 1.8rem;
@@ -102,9 +102,22 @@ h2 {
   align-items: center;
 }
 
+.btn-submit {
+  background: var(--color-blue);
+}
+
 .btn-submit:hover,
 .btn-submit:focus {
   background-color: var(--color-blue-light1);
+}
+
+.btn-close {
+  background: var(--color-black);
+}
+
+.btn-close:hover,
+.btn-close:focus {
+  background-color: var(--color-grey3);
 }
 
 .btn-submit ion-icon {
@@ -269,6 +282,10 @@ header {
   max-width: 100%;
 }
 
+#uploaded-images img:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
 #error-messages {
   margin-bottom: 2rem;
   padding: 1rem 1.5rem;
@@ -308,13 +325,70 @@ footer .copyright {
   text-align: center;
 }
 
+
+/* ========== MODAL ========== */
+.modal {
+  width: 90%;
+  max-width: 50rem;
+  padding: 3rem;
+  background: var(--color-white);
+  box-shadow: 0 0 3rem rgba(0, 0, 0, .3);
+  position: fixed;
+  top: calc(100vh / 2);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1rem;
+}
+
+.modal-name {
+  font-size: 2rem;
+  margin: 2rem 0;
+  color: var(--color-blue);
+}
+
+.modal-photo {
+  max-width: 100%;
+  margin-bottom: 2rem;
+}
+
+.close-icon {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 200;
+  font-size: 4rem;
+  cursor: pointer;
+}
+
+.dark-bg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, .4);
+}
+
+
+
 @media screen and (min-width: 601px) {
   #uploaded-images {
-    justify-content: space-between;
+    /*justify-content: space-between;*/
   }
 
   #uploaded-images img {
     max-width: 32%;
+    margin-bottom: 0;
+  }
+
+  #uploaded-images img:not(:last-child) {
+    margin-right: 1%;
   }
 }
 

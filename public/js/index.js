@@ -91,35 +91,23 @@ $(document).ready(() => {
     }
 
     if (validateForm()) {
-      const newFriend = {
-        name: $('#name-input').val().trim(),
-        photo: $('#image-input').val().trim(),
-        scores: [
-          $('#q1').val(),
-          $('#q2').val(),
-          $('#q3').val(),
-          $('#q4').val(),
-          $('#q5').val(),
-          $('#q6').val(),
-          $('#q7').val(),
-          $('#q8').val(),
-          $('#q9').val(),
-          $('#q10').val()
-        ]
+      const countryData = {
+        name: 'Test Country',
+        image: '/images/countries/sri-lanka.jpg'
       }
 
       // console.log(data);
 
-      $.post('/api/friends', newFriend)
+      $.post('/', countryData)
         .then((data) => {
-          const modalEl = $('<div id="best-match-modal" class="modal">')
+          const modalEl = $('<div id="result-modal" class="modal">')
           const titleEl = $('<h2>')
-          titleEl.text('Best Match')
+          titleEl.text('Your Next Travel Destination')
           const nameEl = $('<p class="modal-name">')
           nameEl.text(data.name)
           const imgEl = $('<img class="modal-photo">')
-          imgEl.attr('src', data.photo)
-          const closeBtnEl = $('<button class="btn btn-grey modal-close">')
+          imgEl.attr('src', data.image)
+          const closeBtnEl = $('<button class="btn btn-close modal-close">')
           closeBtnEl.text('Close')
           const closeIconEl = $('<ion-icon name="close-circle" class="close-icon modal-close">')
           modalEl.append(titleEl, nameEl, imgEl, closeBtnEl, closeIconEl)
@@ -127,12 +115,12 @@ $(document).ready(() => {
           $('.container').append(modalEl, darkBgEl)
         })
     } else {
-      alert('Please fill out all fields before submitting!')
+      alert('Please check the error messages!!')
     }
   })
 
   $(document).on('click', '.modal-close', function () {
-    $('#best-match-modal').remove()
+    $('#result-modal').remove()
     $('.dark-bg').remove()
   })
 })

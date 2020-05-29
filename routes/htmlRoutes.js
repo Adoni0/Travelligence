@@ -31,7 +31,16 @@ module.exports = function (app) {
   })
 
   app.post('/lang-culture', function () {
+    console.log('post test lang-culture')
+  })
+
+  app.post('/', function (req, res) {
     console.log('post test')
+    const countryData = {
+      name: 'Test Country',
+      image: '/images/countries/sri-lanka.jpg'
+    }
+    res.json(countryData)
   })
 
   // Render 404 page for any unmatched routes
