@@ -19,6 +19,10 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
+    associatedCulture: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     language: {
       type: DataTypes.STRING,
       allowNull: false

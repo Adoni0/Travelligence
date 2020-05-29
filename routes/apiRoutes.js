@@ -87,18 +87,6 @@ module.exports = function (app) {
           })
         })
 
-      // db.Profile.create({
-      //   location: result.geo.region,
-      //   wealth: result.wealth,
-
-      //   where: {
-      //     id: req.body.id // have to give value of {{id}} to section of handlebars
-      //   }
-
-      // }).catch(function (error) {
-      //   if (error) throw error
-      // })
-
 
       // var imgPath =
       //   protocol + '://' + host + '/userImages/' + images[0].filename
