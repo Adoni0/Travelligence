@@ -253,12 +253,19 @@ header {
   line-height: 1.4;
 }
 
+.attention {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  color: var(--color-blue);
+}
 
+#uploaded-images {
+  display: flex;
+  flex-wrap: wrap;
+}
 
-/* ========== FORM ========== */
-
-footer {
-  width: 100%;
+#uploaded-images img {
+  max-width: 100%;
 }
 
 #error-messages {
@@ -282,6 +289,12 @@ footer {
 #error-messages li ion-icon {
   font-size: 2rem;
   margin-right: 1rem;
+}
+
+
+/* ========== FOOTER ========== */
+footer {
+  width: 100%;
 }
 
 footer .copyright {
@@ -308,5 +321,13 @@ footer .copyright {
   h2 {
     font-size: 2.5rem;
     line-height: 1.5;
+  }
+
+  #uploaded-images {
+    justify-content: space-between;
+  }
+
+  #uploaded-images img {
+    max-width: 30%;
   }
 }

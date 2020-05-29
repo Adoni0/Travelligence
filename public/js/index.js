@@ -8,6 +8,51 @@ $(document).ready(() => {
     }
   }
 
+  const inputFiles = document.getElementById('interests-images')
+  const uploadedImages = document.getElementById('uploaded-images')
+  const $errorMsg = $('<ul id="error-messages">')
+  const fileSizeArr = []
+
+  const createErrorMsg = msg => {
+    const $errorIcon = $('<ion-icon name="checkmark-circle">')
+    const $nameError = $('<li>')
+    $nameError.text(msg)
+    $nameError.prepend($errorIcon)
+    $errorMsg.append($nameError)
+  }
+
+  const loadLocalImage = (e) => {
+    // ファイル情報を取得
+    var fileData = e.target.files[0]
+
+    // 画像ファイル以外は処理を止める
+    if (!fileData.type.match('image.*')) {
+      alert('画像を選択してください')
+      return
+    }
+
+    // FileReaderオブジェクトを使ってファイル読み込み
+    const reader = new FileReader()
+    // ファイル読み込みに成功したときの処理
+    reader.onload = () => {
+      // ブラウザ上に画像を表示する
+      const img = document.createElement('img')
+      img.src = reader.result
+      uploadedImages.appendChild(img)
+    }
+
+    console.log(fileData)
+    console.log(fileData.size)
+
+    fileSizeArr.push(fileData.size)
+
+    // ファイル読み込みを実行
+    reader.readAsDataURL(fileData)
+  }
+
+  // ファイルが指定された時にloadLocalImage()を実行
+  inputFiles.addEventListener('change', loadLocalImage, false)
+
   createGallery()
 
   $('#form-submit').on('click', (event) => {
@@ -21,26 +66,25 @@ $(document).ready(() => {
       //     isValid = false
       //   }
       // })
-      const $errorMsg = $('<ul id="error-messages">')
 
       if ($('#name').val() === '') {
-        const $errorIcon = $('<ion-icon name="checkmark-circle">')
         isValid = false
         console.log('name error!!!')
-        const $nameError = $('<li>')
-        $nameError.text('Please enter your first name!!')
-        $nameError.prepend($errorIcon)
-        $errorMsg.append($nameError)
+        createErrorMsg('Please enter your first name!!')
       }
 
       if ($('#interests-images').val() === '') {
-        const $errorIcon = $('<ion-icon name="checkmark-circle">')
         isValid = false
         console.log('image error!!!')
-        const $imgError = $('<li>')
-        $imgError.text('Please choose at least one image!!')
-        $imgError.prepend($errorIcon)
-        $errorMsg.append($imgError)
+        createErrorMsg('Please choose at least one image!!')
+      }
+
+      for (const size of fileSizeArr) {
+        if (size >= 4000000) {
+          isValid = false
+          createErrorMsg('Please choose only images smaller than 4MB!!')
+          break
+        }
       }
 
       // $('.chosen-select').each(function () {
