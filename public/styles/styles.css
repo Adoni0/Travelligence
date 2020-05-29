@@ -98,11 +98,17 @@ h2 {
   border: 3px solid var(--color-white);
   box-shadow: 0 0 6px rgba(0, 0, 0, .5);
   text-transform: capitalize;
+  display: flex;
+  align-items: center;
 }
 
 .btn-submit:hover,
 .btn-submit:focus {
   background-color: var(--color-blue-light1);
+}
+
+.btn-submit ion-icon {
+  margin-right: 1rem;
 }
 
 /* ========== HEADER ========== */
