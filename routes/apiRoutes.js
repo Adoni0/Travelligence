@@ -93,15 +93,41 @@ module.exports = function (app) {
             // store result in userProfile
             // once this is all complete res.render()
 
-            async function getCategories() {
-              let test = await computerVision(userProfile.images[0])
-              console.log(test)
-            }
+            var fakeArray = [
+              'https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+              'https://images.pexels.com/photos/4827/nature-forest-trees-fog.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+              'https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+            ]
 
-            getCategories().then(() => {
-              console.log(userProfile)
-              res.redirect('/')
-            })
+            // async function getCategories() {
+            //   let test = await (computerVision.analyzeImage(fakeArray[0])).categories
+            //   console.log(test)
+            // }
+            // getCategories().then(res.redirect('/'))
+
+            // const myPromise = new Promise((resolve, reject) => {
+            //   let test = computerVision(fakeArray[1])
+            //   console.log(test)
+            //   if (test) { resolve(test) } else { reject(err) }
+            // })
+
+            // myPromise.then(res.redirect('/')).catch(console.log(err))
+
+            // computerVision(fakeArray[0])
+            // computerVision(fakeArray[1])
+            // computerVision(fakeArray[2])
+
+            // res.redirect('/')
+
+            // async function getCategories() {
+            //   let test = await computerVision(fakeArray[0])
+            //   console.log('test: ' + test)
+            // }
+
+            // getCategories().then(() => {
+            //   console.log(userProfile)
+            //   res.redirect('/')
+            // })
 
 
 
@@ -115,8 +141,8 @@ module.exports = function (app) {
             //   computerVision(userProfile[count], count)
             // }
 
-            // console.log(userProfile)
-            // res.redirect('/')
+            console.log(userProfile)
+            res.redirect('/')
           })
         })
       })
