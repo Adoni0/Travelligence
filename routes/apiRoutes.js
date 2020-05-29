@@ -34,7 +34,7 @@ module.exports = function (app) {
       culture: culture,
       ip: ip,
       langSetting: langSetting,
-      geo: geoip.lookup('207.97.227.239') //this.ip
+      geo: geoip.lookup('207.97.227.239') // this.ip
     }
 
     axios.get(`https://api.agify.io?name=${result.name}&country_id=${result.geo.country}`).then((data) => {
@@ -67,9 +67,8 @@ module.exports = function (app) {
 
     console.log(result)
 
-
     var imgPath = protocol + '://' + host + '/userImages/' + images[0].filename
-    //result.images.forEach(function (image) {
+    // result.images.forEach(function (image) {
     // console.log(image.path)
 
     computerVision(imgPath)
@@ -77,4 +76,3 @@ module.exports = function (app) {
     res.redirect('/')
   })
 }
-

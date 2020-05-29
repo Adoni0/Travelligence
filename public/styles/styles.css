@@ -253,10 +253,35 @@ header {
   line-height: 1.4;
 }
 
+
+
 /* ========== FORM ========== */
 
 footer {
   width: 100%;
+}
+
+#error-messages {
+  margin-bottom: 2rem;
+  padding: 1rem 1.5rem;
+  background: var(--color-red-light);
+  color: var(--color-white);
+  font-size: 1.2rem;
+  border-radius: .8rem;
+}
+
+#error-messages li {
+  display: flex;
+  align-items: center;
+}
+
+#error-messages li:not(:last-child) {
+  margin-bottom: .8rem;
+}
+
+#error-messages li ion-icon {
+  font-size: 2rem;
+  margin-right: 1rem;
 }
 
 footer .copyright {
