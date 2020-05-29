@@ -22,35 +22,36 @@ $(document).ready(() => {
   }
 
   const loadLocalImage = (e) => {
-    // ファイル情報を取得
-    var fileData = e.target.files[0]
+    // Get file data
+    const fileDataArr = e.target.files
+    for (const fileData of fileDataArr) {
+      // If it's not an image file, stop
+      if (!fileData.type.match('image.*')) {
+        alert('Please choose only image files!!')
+        return
+      }
 
-    // 画像ファイル以外は処理を止める
-    if (!fileData.type.match('image.*')) {
-      alert('画像を選択してください')
-      return
+      // Read a file with FileReader Obj
+      const reader = new FileReader()
+      // Success reading the file
+      reader.onload = () => {
+        // Render the image on browser
+        const img = document.createElement('img')
+        img.src = reader.result
+        uploadedImages.appendChild(img)
+      }
+
+      console.log(fileData)
+      console.log(fileData.size)
+
+      fileSizeArr.push(fileData.size)
+
+      // Execute reading file as data url
+      reader.readAsDataURL(fileData)
     }
-
-    // FileReaderオブジェクトを使ってファイル読み込み
-    const reader = new FileReader()
-    // ファイル読み込みに成功したときの処理
-    reader.onload = () => {
-      // ブラウザ上に画像を表示する
-      const img = document.createElement('img')
-      img.src = reader.result
-      uploadedImages.appendChild(img)
-    }
-
-    console.log(fileData)
-    console.log(fileData.size)
-
-    fileSizeArr.push(fileData.size)
-
-    // ファイル読み込みを実行
-    reader.readAsDataURL(fileData)
   }
 
-  // ファイルが指定された時にloadLocalImage()を実行
+  // Run loadLocalImage() on change event of inputFiles
   inputFiles.addEventListener('change', loadLocalImage, false)
 
   createGallery()
@@ -61,11 +62,6 @@ $(document).ready(() => {
     // Form validation
     const validateForm = () => {
       let isValid = true
-      // $('.form-control').each(function () {
-      //   if ($(this).val() === '') {
-      //     isValid = false
-      //   }
-      // })
 
       if ($('#name').val() === '') {
         isValid = false
@@ -86,14 +82,6 @@ $(document).ready(() => {
           break
         }
       }
-
-      // $('.chosen-select').each(function () {
-      //   if ($(this).val() === '') {
-      //     isValid = false
-      //   }
-      // })
-      console.log('=====interests-images val=======')
-      console.log($('#interests-images').val())
 
       if (!isValid) {
         $('#form-section').prepend($errorMsg)
