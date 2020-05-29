@@ -65,9 +65,9 @@ ul {
 h1 {
   font-family: var(--font-heading);
   width: 100%;
-  font-size: 5.5rem;
+  font-size: 4rem;
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.2;
   text-align: center;
   color: var(--color-white);
 }
@@ -75,20 +75,19 @@ h1 {
 h2 {
   font-family: var(--font-default);
   width: 100%;
-  padding-bottom: 2rem;
-  font-size: 2.5rem;
-  line-height: 1;
+  font-size: 2.2rem;
   text-transform: capitalize;
   font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-blue);
-  line-height: 1.5;
+  color: var(--color-black);
+  line-height: 1.4;
 }
 
 /* ========== BUTTONS ========== */
 .btn-submit {
+  margin: 0 auto;
   padding: 1rem 4rem;
   font-size: 1.8rem;
   color: var(--color-white);
@@ -98,6 +97,7 @@ h2 {
   background: var(--color-blue);
   border: 3px solid var(--color-white);
   box-shadow: 0 0 6px rgba(0, 0, 0, .5);
+  text-transform: capitalize;
 }
 
 .btn-submit:hover,
@@ -134,7 +134,6 @@ header {
   z-index: 100;
   text-shadow: 0 0 1rem rgba(0, 0, 0, .3);
   text-transform: capitalize;
-  line-height: 1.4;
   letter-spacing: .2rem;
 }
 
@@ -174,7 +173,6 @@ header {
 .container {
   width: calc(100% - 4rem);
   max-width: 960px;
-  min-height: 100vh;
   margin: 0 auto;
   padding: 2rem 0;
   position: relative;
@@ -186,17 +184,98 @@ header {
 }
 
 /* ========== FORM ========== */
-.form-group {
-  margin-bottom: 3rem;
+#form-section {
+  width: 100%;
+  margin-top: 3rem;
+  padding: 3rem;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: .8rem;
 }
 
-.list-group-item {
-  line-height: 2.5;
+#travel-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-group,
+.form-check {
+  width: 100%;
+  margin-bottom: 3.5rem;
+  font-size: 1.5rem;
+  display: flex;
+}
+
+.form-group {
+  flex-direction: column;
+}
+
+.form-group .label {
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: flex-start;
+}
+
+.form-group .label ion-icon {
+  margin-right: .5rem;
+  font-size: 2rem;
+  color: var(--color-blue);
+  transform: rotate(-45deg);
+}
+
+.form-group input[type="text"] {
+  padding: .6rem;
+  border: 1px solid var(--color-grey2);
+  border-radius: .5rem;
+}
+
+.form-group input[type="file"] {
+  font-size: 1.3rem;
+}
+
+.form-check {
+  align-items: center;
+}
+
+.form-check input[type="checkbox"] {
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.form-check label {
+  line-height: 1.4;
+}
+
+/* ========== FORM ========== */
+
+footer {
+  width: 100%;
+}
+
+footer .copyright {
+  padding: 1rem 2rem;
+  color: var(--color-grey2);
+  background: var(--color-black);
+  line-height: 1;
+  text-transform: capitalize;
+  font-size: 1rem;
+  text-align: center;
 }
 
 
 @media screen and (min-width: 801px) {
   html {
     font-size: 62.5%; /* 10px/16px = 62.5% -> 1rem = 10px */
+  }
+
+  h1 {
+    font-size: 5.5rem;
+    line-height: 1.4;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    line-height: 1.5;
   }
 }

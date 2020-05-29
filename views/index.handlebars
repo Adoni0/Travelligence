@@ -21,7 +21,7 @@
 
 <div class="container">
     <h2>
-        Where in the world should you travel after quarantine ends?
+        Where in the world should you travel after quarantine ends?<br>
         Answer a few questions about yourself to find out!
     </h2>
 
@@ -34,26 +34,30 @@
 	<section id="form-section">
 		<form id="travel-form" action="api/travelligence" method="POST" enctype="multipart/form-data">
 			<div class="form-group">
-				<label for="name">Name</label>
+				<label for="name" class="label"><ion-icon name="airplane"></ion-icon>First Name</label>
 				<input type="text" class="form-control" id="name" placeholder="Enter First Name" name="name">
 			</div>
 
 			<div class="form-group">
-				<label for="interests-images">Choose a profile picture:</label>
-				<input type="file" id="interests-images" name="interests-images" accept="image/png, image/jpeg" multiple>
+                <label for="interests-images" class="label"><ion-icon name="airplane"></ion-icon>Choose up to 3 photos which show your interest</label>
+                <input type="file" id="interests-images" name="interests-images" accept="image/png, image/jpeg" multiple>
 			</div>
 
 			<div class="form-check">
-				<label class="form-check-label" for="lang-pref">Willing to go somewhere you don't speak the language</label>
-				<input type="checkbox" class="form-check-input" id="lang-pref" name="lang-pref" value="yes">
+                <input type="checkbox" class="form-check-input" id="lang-pref" name="lang-pref" value="yes">
+				<label class="form-check-label" for="lang-pref">Willing to go somewhere you don't speak the language?</label>
 			</div>
 
 			<div class="form-check">
+                <input type="checkbox" class="form-check-input" id="culture-pref" name="culture-pref" value="yes">
 				<label class="form-check-label" for="culture-pref">Would you prefer to explore your own culture?</label>
-				<input type="checkbox" class="form-check-input" id="culture-pref" name="culture-pref" value="yes">
 			</div>
 
-			<button id="form-submit" type="submit" class="btn-submit">Submit</button>
+			<button id="form-submit" type="submit" class="btn-submit">Find Out Your Destination</button>
 		</form>
 	</section>
 </div>
+
+<footer>
+    <p class="copyright">2020 Travelligence. All Rights Reserved.</p>
+</footer>
