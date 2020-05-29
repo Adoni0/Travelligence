@@ -18,6 +18,8 @@ var upload = multer({ storage: storage })
 
 module.exports = function (app) {
   app.post('/api/travelligence', upload.array('interests-images'), (req, res) => {
+    const protocol = req.protocol
+    const host = req.get('host')
     const name = req.body.name
     const images = req.files
     const lang = !!req.body['lang-pref']
@@ -32,7 +34,7 @@ module.exports = function (app) {
       culture: culture,
       ip: ip,
       langSetting: langSetting,
-      geo: geoip.lookup('207.97.227.239')
+      geo: geoip.lookup('207.97.227.239') //this.ip
     }
 
     axios.get(`https://api.agify.io?name=${result.name}&country_id=${result.geo.country}`).then((data) => {
@@ -51,26 +53,28 @@ module.exports = function (app) {
       }
     }
 
-    db.Profile.create({
-      location: result.geo.region,
-      wealth: result.wealth,
+    // db.Profile.create({
+    //   location: result.geo.region,
+    //   wealth: result.wealth,
 
-      where: {
-        id: req.body.id // have to give value of {{id}} to section of handlebars
-      }
+    //   where: {
+    //     id: req.body.id // have to give value of {{id}} to section of handlebars
+    //   }
 
-    }).catch(function (error) {
-      if (error) throw error
-    })
+    // }).catch(function (error) {
+    //   if (error) throw error
+    // })
 
     console.log(result)
 
-    result.images.forEach(function (image) {
-      console.log(image.path)
 
-      computerVision(image.filename)
-    })
+    var imgPath = protocol + '://' + host + '/userImages/' + images[0].filename
+    //result.images.forEach(function (image) {
+    // console.log(image.path)
+
+    computerVision(imgPath)
 
     res.redirect('/')
   })
 }
+
