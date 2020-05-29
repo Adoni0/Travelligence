@@ -41,6 +41,8 @@
 			<div class="form-group">
                 <label for="interests-images" class="label"><ion-icon name="airplane"></ion-icon>Choose up to 3 photos which show your interest</label>
                 <input type="file" id="interests-images" name="interests-images" accept="image/png, image/jpeg" multiple>
+                <p class="attention">* The image size must be less than 4MB and dimensions greater than 50x50 pixels.</p>
+                <div id="uploaded-images"></div>
 			</div>
 
 			<div class="form-check">
@@ -53,7 +55,7 @@
 				<label class="form-check-label" for="culture-pref">Would you prefer to explore your own culture?</label>
 			</div>
 
-			<button id="form-submit" type="submit" class="btn-submit">
+			<button id="form-submit" type="submit" class="btn btn-submit">
                 <ion-icon name="navigate"></ion-icon>
                 Find Out Your Destination
             </button>
