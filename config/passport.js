@@ -7,7 +7,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: 'http://localhost:3000/dashboard'
+      callbackURL: 'https://blue-project-2.herokuapp.com/dashboard'
       // "https://blue-project-2.herokuapp.com/dashboard"
     },
     function (accessToken, refreshToken, profile, cb) {
