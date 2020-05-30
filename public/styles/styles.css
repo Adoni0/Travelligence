@@ -344,8 +344,21 @@ footer .copyright {
   border-radius: 1rem;
 }
 
-.modal-name {
+.modal-header {
   font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+}
+
+.modal-header ion-icon {
+  margin-right: .5rem;
+  font-size: 2rem;
+  color: var(--color-blue);
+}
+
+.modal-name {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
   margin: 2rem 0;
   color: var(--color-blue);
 }
