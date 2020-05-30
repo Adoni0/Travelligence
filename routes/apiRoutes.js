@@ -239,7 +239,7 @@ module.exports = function (app) {
 
                 setTimeout(() => {
                   var highestInterest = 0
-                  for (interests in userProfile.interests_details) {
+                  for (const interests in userProfile.interests_details) {
                     if (userProfile.interests_details[interests] > highestInterest) {
                       userProfile.interests = interests
                       console.log('The highest interest is: ' + interests)
@@ -263,4 +263,3 @@ module.exports = function (app) {
     })
   })
 }
-
