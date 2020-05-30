@@ -136,7 +136,19 @@ module.exports = function (app) {
             // }
 
             console.log(userProfile)
-            res.redirect('/')
+
+            const imagePath = '/images/countries/'
+            // Using fake data
+            const countryData = {
+              name: 'Test Country',
+              image: `${imagePath}sri-lanka.jpg`
+            }
+
+            res.render('index', {
+              countryData: countryData
+            })
+
+            // res.redirect('/')
           })
         })
       })

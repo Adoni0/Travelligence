@@ -56,7 +56,7 @@ $(document).ready(() => {
 
   createGallery()
 
-  $('#form-submit').on('click', (event) => {
+  $('#travel-form').on('submit', (event) => {
     event.preventDefault()
 
     // Form validation
@@ -91,10 +91,13 @@ $(document).ready(() => {
     }
 
     if (validateForm()) {
-      const countryData = {
-        name: 'Test Country',
-        image: '/images/countries/sri-lanka.jpg'
-      }
+      // Continue the form submit
+      event.currentTarget.submit()
+
+      // const countryData = {
+      //   name: 'Test Country',
+      //   image: '/images/countries/sri-lanka.jpg'
+      // }
 
       // console.log(data);
 
