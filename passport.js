@@ -1,4 +1,4 @@
-//npm install passport-github
+var passport = require('passport')
 var GitHubStrategy = require('passport-github').Strategy
 
 passport.use(new GitHubStrategy({
@@ -21,6 +21,11 @@ passport.serializeUser(function(user, cb) {
   passport.deserializeUser(function(obj, cb) {
     cb(null, obj)
   })
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
   app.get('/',
   function(req, res) {
