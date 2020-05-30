@@ -1,5 +1,6 @@
 const db = require('../models')
 const computerVision = require('../CompVision.js')
+const simpleVision = require('../simpleVision.js')
 const axios = require('axios')
 const geoip = require('geoip-lite')
 const multer = require('multer')
@@ -99,6 +100,7 @@ module.exports = function (app) {
               'https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
             ]
 
+            axios.get(``)
             // async function getCategories() {
             //   let test = await (computerVision.analyzeImage(fakeArray[0])).categories
             //   console.log(test)
