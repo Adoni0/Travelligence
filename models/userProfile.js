@@ -3,41 +3,56 @@ module.exports = function (sequelize, DataTypes) {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoInrement: true,
+      autoIncrement: true,
       primaryKey: true
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    location: {
+    locationIp: {
+      type: DataTypes.STRING
+    },
+    locationCountry: {
+      type: DataTypes.STRING
+    },
+    locationRegion: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    locationCity: {
+      type: DataTypes.STRING
+    },
+    locationLL: {
+      type: DataTypes.STRING
     },
     wealth: {
       type: DataTypes.DECIMAL(5, 1),
       allowNull: false
     },
     // cost_bracket: DataTypes.STRING, // luxury, moderate, economy
-    culture: {
-      type: DataTypes.STRING,
+    culturePreference: {
+      type: DataTypes.BOOLEAN,
       allowNull: false
     },
     associatedCulture: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    language: {
+    langPreference: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    langSetting: {
       type: DataTypes.STRING,
       allowNull: false
     },
     interests: {
-      type: DataTypes.DECIMAL(5, 2),
+      type: DataTypes.STRING,
       allowNull: false
     },
-    somethingNew: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
+    gender: {
+      type: DataTypes.STRING
     }
   })
   return Profile

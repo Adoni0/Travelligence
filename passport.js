@@ -2,17 +2,16 @@ var passport = require('passport')
 var GitHubStrategy = require('passport-github').Strategy
 
 passport.use(new GitHubStrategy({
-  clientID: process.env['GITHUB_CLIENT_ID'],
-  clientSecret: process.env['GITHUB_CLIENT_SECRET'],
-  callbackURL: "https://blue-project-2.herokuapp.com/dashboard"
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  callbackURL: 'https://blue-project-2.herokuapp.com/dashboard'
 },
-  function (accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return cb(err, user)
-    })
-  }
+function (accessToken, refreshToken, profile, cb) {
+  User.findOrCreate({ githubId: profile.id }, function (err, user) {
+    return cb(err, user)
+  })
+}
 ))
-
 
 passport.serializeUser(function (user, cb) {
   cb(null, user)
@@ -22,9 +21,8 @@ passport.deserializeUser(function (obj, cb) {
   cb(null, obj)
 })
 
-app.use(passport.initialize());
-app.use(passport.session());
-
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.get('/',
   function (req, res) {
@@ -35,7 +33,6 @@ app.get('/login',
   function (req, res) {
     res.render('login')
   })
-
 
 app.get('/auth/github',
   passport.authenticate('github'))
