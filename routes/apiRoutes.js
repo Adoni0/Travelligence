@@ -59,8 +59,8 @@ module.exports = function (app) {
         medianIncome: 0
       },
       wealth: 0,
-      geo: geoip.lookup('207.97.227.239') // this.ip
-      // geo: geoip.lookup(ip)
+      // geo: geoip.lookup('207.97.227.239') // this.ip
+      geo: geoip.lookup(ip)
     }
 
     userProfile.images = userProfile.images.map((item) => {
@@ -118,8 +118,8 @@ module.exports = function (app) {
                 'ocp-apim-subscription-key': subscriptionKey
               },
               body: {
-                // url: userProfile.images[count]
-                url: fakeArray[count]
+                url: userProfile.images[count]
+                // url: fakeArray[count]
               },
               json: true
             }, function (error, response, body) {
