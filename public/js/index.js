@@ -101,8 +101,10 @@ $(document).ready(() => {
       $.post('/', countryData)
         .then((data) => {
           const modalEl = $('<div id="result-modal" class="modal">')
-          const titleEl = $('<h2>')
+          const titleEl = $('<h2 class="modal-header">')
           titleEl.text('Your Next Travel Destination')
+          const titleIcon = $('<ion-icon name="navigate">')
+          titleEl.prepend(titleIcon)
           const nameEl = $('<p class="modal-name">')
           nameEl.text(data.name)
           const imgEl = $('<img class="modal-photo">')
