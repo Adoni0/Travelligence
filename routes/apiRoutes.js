@@ -59,7 +59,8 @@ module.exports = function (app) {
         medianIncome: 0
       },
       wealth: 0,
-      geo: geoip.lookup('207.97.227.239') // this.ip
+      // geo: geoip.lookup('207.97.227.239') // this.ip
+      geo: geoip.lookup(this.ip)
     }
 
     userProfile.images = userProfile.images.map((item) => {
