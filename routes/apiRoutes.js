@@ -37,7 +37,8 @@ module.exports = function (app) {
       images: images,
       lang: lang,
       culture: culture,
-      interests: [],
+      interests_details: [],
+      interests: '',
       associatedCulture: [],
       ip: ip,
       langSetting: langSetting,
@@ -112,7 +113,8 @@ module.exports = function (app) {
             }, function (error, response, body) {
               if (error) throw new Error(error);
               console.log(`Checked an image`)
-              userProfile.interests.push(body.categories[0].name)
+              // userProfile.interests.push(body.categories)
+              userProfile.interests_details.push(body.categories[0].name)
               console.log(userProfile)
             })
 
@@ -128,6 +130,19 @@ module.exports = function (app) {
                 countryImage: `${imagePath}sri-lanka.jpg`
               }
               console.log(countryData)
+
+              // get interst answer
+              // find duplicates in array
+
+              var targetCategories = ['food', 'animal', 'drink', 'building', 'outdoor', 'plant']
+              // 
+              userProfile.forEach((item) => {
+                if (targetCategories.includes(item.split('_')[0])) {
+                  userProfile.interests.push(item.split('_')[0])
+                }
+              })
+              // if no duplicates return userPrile.interests_details[0]
+              // END get interest
               res.render('index', {
                 countryData: countryData
               })
