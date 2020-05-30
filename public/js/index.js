@@ -56,73 +56,49 @@ $(document).ready(() => {
 
   createGallery()
 
-  // $('#form-submit').on('click', (event) => {
-  //   // event.preventDefault()
+  $('#travel-form').on('submit', (event) => {
+    event.preventDefault()
+    // if ($errorMsg) {
+    //   $errorMsg.remove()
+    // }
 
-  //   // Form validation
-  //   const validateForm = () => {
-  //     let isValid = true
+    // Form validation
+    const validateForm = () => {
+      let isValid = true
 
-  //     if ($('#name').val() === '') {
-  //       isValid = false
-  //       console.log('name error!!!')
-  //       createErrorMsg('Please enter your first name!!')
-  //     }
+      if ($('#name').val() === '') {
+        isValid = false
+        console.log('name error!!!')
+        createErrorMsg('Please enter your first name!!')
+      }
 
-  //     if ($('#interests-images').val() === '') {
-  //       isValid = false
-  //       console.log('image error!!!')
-  //       createErrorMsg('Please choose at least one image!!')
-  //     }
+      if ($('#interests-images').val() === '') {
+        isValid = false
+        console.log('image error!!!')
+        createErrorMsg('Please choose at least one image!!')
+      }
 
-  //     for (const size of fileSizeArr) {
-  //       if (size >= 4000000) {
-  //         isValid = false
-  //         createErrorMsg('Please choose only images smaller than 4MB!!')
-  //         break
-  //       }
-  //     }
+      for (const size of fileSizeArr) {
+        if (size >= 4000000) {
+          isValid = false
+          createErrorMsg('Please choose only images smaller than 4MB!!')
+          break
+        }
+      }
 
-  //     if (!isValid) {
-  //       $('#form-section').prepend($errorMsg)
-  //     }
+      // if (!isValid) {
+      //   $('#form-section').prepend($errorMsg)
+      // }
 
-  //     return isValid
-  //   }
+      return isValid
+    }
 
-  //   if (validateForm()) {
-  //     const countryData = {
-  //       name: 'Test Country',
-  //       image: '/images/countries/sri-lanka.jpg'
-  //     }
-
-  //     // console.log(data);
-
-  //     // $.post('/', countryData)
-  //     //   .then((data) => {
-  //     //     const modalEl = $('<div id="result-modal" class="modal">')
-  //     //     const titleEl = $('<h2 class="modal-header">')
-  //     //     titleEl.text('Your Next Travel Destination')
-  //     //     const titleIcon = $('<ion-icon name="navigate">')
-  //     //     titleEl.prepend(titleIcon)
-  //     //     const nameEl = $('<p class="modal-name">')
-  //     //     nameEl.text(data.name)
-  //     //     const imgEl = $('<img class="modal-photo">')
-  //     //     imgEl.attr('src', data.image)
-  //     //     const closeBtnEl = $('<button class="btn btn-close modal-close">')
-  //     //     closeBtnEl.text('Close')
-  //     //     const closeIconEl = $('<ion-icon name="close-circle" class="close-icon modal-close">')
-  //     //     modalEl.append(titleEl, nameEl, imgEl, closeBtnEl, closeIconEl)
-  //     //     const darkBgEl = $('<div class="dark-bg modal-close">')
-  //     //     $('.container').append(modalEl, darkBgEl)
-  //     //   })
-  //   } else {
-  //     alert('Please check the error messages!!')
-  //   }
-  // })
-
-  $(document).on('click', '.modal-close', function () {
-    $('#result-modal').remove()
-    $('.dark-bg').remove()
+    if (validateForm()) {
+      // Continue the form submit
+      event.currentTarget.submit()
+    } else {
+      // alert('Please check the error messages!!')
+      $('#form-section').prepend($errorMsg)
+    }
   })
 })

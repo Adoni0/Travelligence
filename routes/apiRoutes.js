@@ -121,7 +121,16 @@ module.exports = function (app) {
               count++
               getCategories()
             } else {
-              res.redirect('/')
+              const imagePath = '/images/countries/'
+              // Using fake data
+              const countryData = {
+                countryName: 'Test Country',
+                countryImage: `${imagePath}sri-lanka.jpg`
+              }
+              console.log(countryData)
+              res.render('index', {
+                countryData: countryData
+              })
             }
 
           }
@@ -130,9 +139,18 @@ module.exports = function (app) {
 
 
 
+
+
+
+
+
+
+
+
+          // res.redirect('/')
         })
       })
     })
-  }
-  )
+  })
 }
+
