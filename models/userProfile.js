@@ -6,6 +6,10 @@ module.exports = function (sequelize, DataTypes) {
       autoInrement: true,
       primaryKey: true
     },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     location: {
       type: DataTypes.STRING,
       allowNull: false

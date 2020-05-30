@@ -2,9 +2,9 @@
 var GitHubStrategy = require('passport-github').Strategy
 
 passport.use(new GitHubStrategy({
-    clientID: GITHUB_CLIENT_ID,
-    clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+    clientID: process.env['GITHUB_CLIENT_ID'],
+    clientSecret: process.env['GITHUB_CLIENT_SECRET'],
+    callbackURL: "https://blue-project-2.herokuapp.com/dashboard"
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ githubId: profile.id }, function (err, user) {
@@ -15,22 +15,22 @@ passport.use(new GitHubStrategy({
 
 
 passport.serializeUser(function(user, cb) {
-    cb(null, user);
-  });
+    cb(null, user)
+  })
   
   passport.deserializeUser(function(obj, cb) {
-    cb(null, obj);
-  });
+    cb(null, obj)
+  })
 
   app.get('/',
   function(req, res) {
-    res.render('home', { user: req.user });
-  });
+    res.render('home', { user: req.user })
+  })
 
 app.get('/login',
   function(req, res){
-    res.render('login');
-  });
+    res.render('login')
+  })
 
 
 app.get('/auth/github',
@@ -40,7 +40,7 @@ app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.redirect('/')
   })
 
 //   app.get('/profile',
