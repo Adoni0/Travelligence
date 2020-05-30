@@ -36,7 +36,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.get('/', function (req, res) {
-  res.render('home', { user: req.user })
+  res.render('index', { user: req.user })
 })
 
 app.get('/login', function (req, res) {
