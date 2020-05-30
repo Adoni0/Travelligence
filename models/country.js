@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
       unique: true,
       validate: {
-        len: [2,2]
+        len: [2, 2]
       }
     },
     categories: {

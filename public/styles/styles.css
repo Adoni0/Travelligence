@@ -313,16 +313,35 @@ header {
 /* ========== FOOTER ========== */
 footer {
   width: 100%;
+  padding: 2rem;
+  color: var(--color-grey2);
+  background: var(--color-black);
+  text-align: center;
 }
 
 footer .copyright {
-  padding: 1rem 2rem;
-  color: var(--color-grey2);
-  background: var(--color-black);
   line-height: 1;
   text-transform: capitalize;
   font-size: 1rem;
-  text-align: center;
+}
+
+footer .link {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: var(--color-blue-light1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer .link:hover,
+footer .link:focus {
+  color: var(--color-blue);
+}
+
+footer .link ion-icon {
+  margin-right: 1rem;
+  font-size: 2rem;
 }
 
 
