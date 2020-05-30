@@ -140,9 +140,11 @@ module.exports = function (app) {
             const imagePath = '/images/countries/'
             // Using fake data
             const countryData = {
-              name: 'Test Country',
-              image: `${imagePath}sri-lanka.jpg`
+              countryName: 'Test Country',
+              countryImage: `${imagePath}sri-lanka.jpg`
             }
+
+            console.log(countryData)
 
             res.render('index', {
               countryData: countryData
