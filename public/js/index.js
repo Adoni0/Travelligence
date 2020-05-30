@@ -56,8 +56,11 @@ $(document).ready(() => {
 
   createGallery()
 
-  $('#form-submit').on('click', (event) => {
+  $('#travel-form').on('submit', (event) => {
     event.preventDefault()
+    // if ($errorMsg) {
+    //   $errorMsg.remove()
+    // }
 
     // Form validation
     const validateForm = () => {
@@ -83,46 +86,19 @@ $(document).ready(() => {
         }
       }
 
-      if (!isValid) {
-        $('#form-section').prepend($errorMsg)
-      }
+      // if (!isValid) {
+      //   $('#form-section').prepend($errorMsg)
+      // }
 
       return isValid
     }
 
     if (validateForm()) {
-      const countryData = {
-        name: 'Test Country',
-        image: '/images/countries/sri-lanka.jpg'
-      }
-
-      // console.log(data);
-
-      $.post('/', countryData)
-        .then((data) => {
-          const modalEl = $('<div id="result-modal" class="modal">')
-          const titleEl = $('<h2 class="modal-header">')
-          titleEl.text('Your Next Travel Destination')
-          const titleIcon = $('<ion-icon name="navigate">')
-          titleEl.prepend(titleIcon)
-          const nameEl = $('<p class="modal-name">')
-          nameEl.text(data.name)
-          const imgEl = $('<img class="modal-photo">')
-          imgEl.attr('src', data.image)
-          const closeBtnEl = $('<button class="btn btn-close modal-close">')
-          closeBtnEl.text('Close')
-          const closeIconEl = $('<ion-icon name="close-circle" class="close-icon modal-close">')
-          modalEl.append(titleEl, nameEl, imgEl, closeBtnEl, closeIconEl)
-          const darkBgEl = $('<div class="dark-bg modal-close">')
-          $('.container').append(modalEl, darkBgEl)
-        })
+      // Continue the form submit
+      event.currentTarget.submit()
     } else {
-      alert('Please check the error messages!!')
+      // alert('Please check the error messages!!')
+      $('#form-section').prepend($errorMsg)
     }
-  })
-
-  $(document).on('click', '.modal-close', function () {
-    $('#result-modal').remove()
-    $('.dark-bg').remove()
   })
 })

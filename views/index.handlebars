@@ -66,3 +66,20 @@
 <footer>
     <p class="copyright">2020 Travelligence. All Rights Reserved.</p>
 </footer>
+
+{{#if countryData}}
+    <div id="result-modal" class="modal">
+        <h2 class="modal-header">
+            <ion-icon name="navigate"></ion-icon>
+            Your Next Travel Destination
+        </h2>
+        <p class="modal-name">
+            {{countryData.countryName}}
+        </p>
+        <img class="modal-photo" src="{{countryData.countryImage}}">
+        <button class="btn btn-close modal-close">Close</button>
+        <ion-icon name="close-circle" class="close-icon modal-close"></ion-icon>
+    </div>
+    <div class="dark-bg modal-close"></div>
+    <script src="/js/modal.js"></script>
+{{/if}}
