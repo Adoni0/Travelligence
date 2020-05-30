@@ -19,24 +19,24 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
     // cost_bracket: DataTypes.STRING, // luxury, moderate, economy
-    culture: {
-      type: DataTypes.STRING,
+    culturePreference: {
+      type: DataTypes.BOOLEAN,
       allowNull: false
     },
     associatedCulture: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    language: {
+    langPreference: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    langSetting: {
       type: DataTypes.STRING,
       allowNull: false
     },
     interests: {
-      type: DataTypes.DECIMAL(5, 2),
-      allowNull: false
-    },
-    somethingNew: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.STRING,
       allowNull: false
     }
   })
