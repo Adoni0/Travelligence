@@ -7,7 +7,7 @@ const geoip = require('geoip-lite')
 const multer = require('multer')
 const subscriptionKey = process.env.KEY
 const endpoint = process.env.ENDPOINT
-if (!subscriptionKey) { throw new Error(); }
+if (!subscriptionKey) { throw new Error() }
 const medianIncome = require('../medianIncome.js')
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -83,7 +83,7 @@ module.exports = function (app) {
 
     axios.get(`https://api.agify.io?name=${userProfile.name}&country_id=${userProfile.geo.country}`).then((data) => {
       // console.log(data)
-      userProfile.age = Math.floor((data.data.age) * .7)
+      userProfile.age = Math.floor((data.data.age) * 0.7)
       // result.age = data.data.age.toFixed(2)
       if (userProfile.age <= 35) {
         userProfile.wealthDetails.age = 0.34
@@ -96,7 +96,6 @@ module.exports = function (app) {
       userProfile.wealth = (userProfile.wealthDetails.age + userProfile.wealthDetails.medianIncome) / 2
 
       axios.get(`https://api.nationalize.io?name=${userProfile.name}`).then((data) => {
-
         data.data.country.forEach((country) => {
           userProfile.associatedCulture.push(country.country_id)
         })
@@ -106,11 +105,11 @@ module.exports = function (app) {
 
           var fakeArray = ['https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/4827/nature-forest-trees-fog.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260']
 
-          var uriBase = endpoint + 'vision/v3.0/analyze';
+          var uriBase = endpoint + 'vision/v3.0/analyze'
 
           var count = 0
 
-          function getCategories() {
+          function getCategories () {
             request({
               method: 'POST',
               url: uriBase,
@@ -124,12 +123,12 @@ module.exports = function (app) {
               },
               json: true
             }, function (error, response, body) {
-              if (error) throw new Error(error);
+              if (error) throw new Error(error)
 
               if (body.categories[0].name.split('_')[0] === 'outdoor') {
-                userProfile.interests_details[body.categories[0].name] += .34
+                userProfile.interests_details[body.categories[0].name] += 0.34
               } else if (userProfile.interests_details[body.categories[0].name.split('_')[0]] === 0) {
-                userProfile.interests_details[body.categories[0].name.split('_')[0]] += .34
+                userProfile.interests_details[body.categories[0].name.split('_')[0]] += 0.34
               }
             })
 
@@ -137,15 +136,14 @@ module.exports = function (app) {
               count++
               getCategories()
             } else {
-
               /// LOGIC TO SELECT A COUNTRY ======================================
               let selectedCountries
 
               // Filter by Wealth
               let wealth
-              if (userProfile.wealth <= .34) {
+              if (userProfile.wealth <= 0.34) {
                 wealth = 'economy'
-              } else if (userProfile.wealth <= .67) {
+              } else if (userProfile.wealth <= 0.67) {
                 wealth = 'moderate'
               } else {
                 wealth = 'luxury'
@@ -161,12 +159,12 @@ module.exports = function (app) {
                 console.log(selectedCountries)
 
                 // Filter by Interest
-                ////// EX) Country.categories: 'building, outdoor_oceanbeach, outdoor_water'
+                /// /// EX) Country.categories: 'building, outdoor_oceanbeach, outdoor_water'
                 if (selectedCountries.length > 1) {
                   selectedCountries.forEach((country, index) => {
                     const countryCategoriesArr = country.categories.split(', ')
 
-                    // // Modify category name in countryCategoriesArr if it's outdoor_ 
+                    // // Modify category name in countryCategoriesArr if it's outdoor_
                     // countryCategoriesArr.map((category) => {
                     //     if (category.includes('outdoor')) {
                     //         category = category.split('_')[1]
@@ -181,10 +179,10 @@ module.exports = function (app) {
                 }
 
                 // Filter by Language
-                ///// Willing to go somewhere you don't speak the language?
-                ///// EX) langSetting: 'en-US,en;q=0.9,ja;q=0.8'
-                ///// EX) countryLangs: 'en, ja'
-                if (selectedCountries.length > 1 && !userProfile.lang) {  // if the user says No, remove all countries whose languages don't match the user's langSetting from selectedCountries array
+                /// // Willing to go somewhere you don't speak the language?
+                /// // EX) langSetting: 'en-US,en;q=0.9,ja;q=0.8'
+                /// // EX) countryLangs: 'en, ja'
+                if (selectedCountries.length > 1 && !userProfile.lang) { // if the user says No, remove all countries whose languages don't match the user's langSetting from selectedCountries array
                   const langSettingArrTemp = userProfile.langSetting.split(',')
                   const langSettingArr = langSettingArrTemp.map((lang) => {
                     // Return only first 2 letters of language (en-US => en)
@@ -205,9 +203,9 @@ module.exports = function (app) {
                 }
 
                 // Filter by Culture
-                ///// Would you prefer to explore your own culture?
-                ///// EX) associatedCulture: [ 'JP', '', 'GB' ]
-                if (selectedCountries.length > 1 && userProfile.culture) {  // if the user says Yes, remove all countries which don't match the user's culture
+                /// // Would you prefer to explore your own culture?
+                /// // EX) associatedCulture: [ 'JP', '', 'GB' ]
+                if (selectedCountries.length > 1 && userProfile.culture) { // if the user says Yes, remove all countries which don't match the user's culture
                   const associatedCultureArr = userProfile.associatedCulture.map((cul) => cul.toLowerCase())
                   selectedCountries.forEach((country, index) => {
                     if (!associatedCultureArr.includes(country.code.toLowerCase())) {
@@ -235,7 +233,6 @@ module.exports = function (app) {
                   countryImage: `${imagePath}${destinationImage}`
                 }
                 console.log(countryData)
-
 
                 setTimeout(() => {
                   var highestInterest = 0
