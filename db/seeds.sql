@@ -34,7 +34,7 @@ VALUES
     (
         'Panama',
         'PA',
-        'o_city, outdoor_oceanbeachutdoor',
+        'outdoor_city, outdoor_oceanbeach',
         'luxury',
         'es',
         'panama.jpg'
