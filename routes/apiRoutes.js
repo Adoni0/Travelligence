@@ -66,7 +66,7 @@ module.exports = function (app) {
 
       axios.get(`https://api.agify.io?name=${userProfile.name}&country_id=${userProfile.geo.country}`).then((data) => {
         // console.log(data)
-        userProfile.age = Math.floor((data.data.age) * .7)
+        userProfile.age = Math.floor((data.data.age) * 0.7)
         // result.age = data.data.age.toFixed(2)
         if (userProfile.age <= 35) {
           userProfile.wealthDetails.age = 0.34
@@ -79,14 +79,12 @@ module.exports = function (app) {
         userProfile.wealth = (userProfile.wealthDetails.age + userProfile.wealthDetails.medianIncome) / 2
 
         axios.get(`https://api.nationalize.io?name=${userProfile.name}`).then((data) => {
-
           data.data.country.forEach((country) => {
             userProfile.associatedCulture.push(country.country_id)
           })
 
           axios.get(`https://api.genderize.io?name=${userProfile.name}&country_id=${userProfile.geo.country}`).then((data) => {
             userProfile.gender = data.data.gender
-
 
             // iterate over array of images
             // finish each call of computerVision
@@ -129,10 +127,6 @@ module.exports = function (app) {
             //   res.redirect('/')
             // })
 
-
-
-
-
             // getCategories()
 
             // var count = 0
@@ -147,6 +141,17 @@ module.exports = function (app) {
         })
       })
 
+      // db.Profile.create({
+      //   location: result.geo.region,
+      //   wealth: result.wealth,
+
+      //   where: {
+      //     id: req.body.id // have to give value of {{id}} to section of handlebars
+      //   }
+
+      // }).catch(function (error) {
+      //   if (error) throw error
+      // })
 
       // var imgPath =
       //   protocol + '://' + host + '/userImages/' + images[0].filename

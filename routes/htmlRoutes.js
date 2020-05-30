@@ -11,34 +11,13 @@ module.exports = function (app) {
     })
   })
 
-  // Load example page and pass in an example by id
-  app.get('/example/:id', function (req, res) {
-    db.Example.findOne({ where: { id: req.params.id } }).then(function (
-      dbExample
-    ) {
-      res.render('example', {
-        example: dbExample
-      })
-    })
-  })
-
-  // Lang and Culture Test
-  app.get('/lang-culture', function (req, res) {
-    console.log(req.headers['accept-language'])
-    res.render('lang', {
-      lang: req.headers['accept-language']
-    })
-  })
-
-  app.post('/lang-culture', function () {
-    console.log('post test lang-culture')
-  })
-
   app.post('/', function (req, res) {
     console.log('post test')
+    const imagePath = '/images/countries/'
+    // Using fake data
     const countryData = {
       name: 'Test Country',
-      image: '/images/countries/sri-lanka.jpg'
+      image: `${imagePath}sri-lanka.jpg`
     }
     res.json(countryData)
   })
