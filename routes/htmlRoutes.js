@@ -11,6 +11,7 @@ module.exports = function (app) {
     })
   })
 
+
   app.post('/', function (req, res) {
     console.log('post test')
     const imagePath = '/images/countries/'
