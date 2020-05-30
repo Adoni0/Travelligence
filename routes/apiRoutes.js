@@ -249,13 +249,18 @@ module.exports = function (app) {
                   // Insert data into userProfile table
                   db.Profile.create({
                     name: userProfile.name,
-                    location: userProfile.geo.region,
+                    locationIp: userProfile.ip,
+                    locationCountry: userProfile.geo.country,
+                    locationRegion: userProfile.geo.region,
+                    locationCity: userProfile.geo.city,
+                    locationLL: userProfile.geo.ll.join(', '),
                     wealth: userProfile.wealth,
                     culturePreference: userProfile.culture,
                     associatedCulture: userProfile.associatedCulture.join(', '),
                     langPreference: userProfile.lang,
                     langSetting: userProfile.langSetting,
-                    interests: userProfile.interests
+                    interests: userProfile.interests,
+                    gender: userProfile.gender
                   }).then(data => {
                     console.log('userProfile data is successfully inserted into Profile table :)')
                   })

@@ -10,9 +10,21 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    location: {
+    locationIp: {
+      type: DataTypes.STRING
+    },
+    locationCountry: {
+      type: DataTypes.STRING
+    },
+    locationRegion: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    locationCity: {
+      type: DataTypes.STRING
+    },
+    locationLL: {
+      type: DataTypes.STRING
     },
     wealth: {
       type: DataTypes.DECIMAL(5, 1),
@@ -38,6 +50,9 @@ module.exports = function (sequelize, DataTypes) {
     interests: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    gender: {
+      type: DataTypes.STRING
     }
   })
   return Profile
