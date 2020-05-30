@@ -4,7 +4,8 @@ var express = require("express");
 var exphbs = require("express-handlebars");
 // Requiring passport as we've configured it
 // var passport = require('./config/passport')
-var session = require("express-session");
+// var session = require("express-session");
+var session = require("cookie-session");
 var db = require("./models");
 var passport = require("./config/passport.js");
 
