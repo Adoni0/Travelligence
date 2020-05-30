@@ -1,26 +1,26 @@
 var db = require('../models')
 
 module.exports = function (app) {
-    const userProfile = {
-        name: name,
-        images: images,
-        lang: lang,
-        culture: culture,
-        associatedCulture: [],
-        ip: ip,
-        langSetting: langSetting,
-        wealthDetails: {
-          age: 0,
-          medianIncome: 0
-        },
-        wealth: 0,
-        geo: geoip.lookup('207.97.227.239') // this.ip
-      }
+    // const userProfile = {
+    //     name: name,
+    //     images: images,
+    //     lang: lang,
+    //     culture: culture,
+    //     associatedCulture: [],
+    //     ip: ip,
+    //     langSetting: langSetting,
+    //     wealthDetails: {
+    //       age: 0,
+    //       medianIncome: 0
+    //     },
+    //     wealth: 0,
+    //     geo: geoip.lookup('207.97.227.239') // this.ip
+    //   }
 
 
-      const selectedCountries = []
+    app.post('/api/travelligence/test', function (req, res) {
 
-      app.post('/api/travelligence', function(req, res){
+        const selectedCountries = []
 
         // Filter by Wealth
         let wealth
@@ -31,19 +31,28 @@ module.exports = function (app) {
         } else {
             wealth = 'luxury'
         }
-        
+
         db.Country.findAll({
-            where: {cost: wealth}
+            where: { cost: wealth }
         }).then((allCountries) => {
-            selectedCountries.push(allCountries) 
+            selectedCountries.push(allCountries)
 
             // Filter by Interest
             ////// EX) Country.categories: 'building, outdoor_oceanbeach, outdoor_water'
             if (selectedCountries.length > 1) {
                 selectedCountries.forEach((country, index) => {
                     const countryCategoriesArr = country.categories.split(', ')
-                    if (!countryCategoriesArr.includes(userProfile.interest)) {
-                        selectedCountries.splice(index, 1) 
+
+                    // // Modify category name in countryCategoriesArr if it's outdoor_ 
+                    // countryCategoriesArr.map((category) => {
+                    //     if (category.includes('outdoor')) {
+                    //         category = category.split('_')[1]
+                    //     }
+                    //     return category
+                    // })
+
+                    if (!countryCategoriesArr.includes(userProfile.interests)) {
+                        selectedCountries.splice(index, 1)
                     }
                 })
             }
@@ -59,9 +68,15 @@ module.exports = function (app) {
                     return lang.slice(0, 2).toLowerCase()
                 })
                 selectedCountries.forEach((country, index) => {
+                    let includeLang = false
                     const countryLangs = country.lang.split(', ').map(lang => lang.toLowerCase())
-                    if (!countryLangs.includes(langSetting)) {
-                        selectedCountries.splice(index, 1) 
+                    langSettingArr.forEach(langSetting => {
+                        if (countryLangs.includes(langSetting)) {
+                            includeLang = true
+                        }
+                    })
+                    if (!includeLang) {
+                        selectedCountries.splice(index, 1)
                     }
                 })
             }
@@ -82,7 +97,7 @@ module.exports = function (app) {
 
         // Choose a country from selected countries array randomly (if there is more than one contry in the array)
         const destinationDataObj = selectedCountries.length === 1 ? selectedCountries[0] : selectedCountries[Math.floor(Math.random() * selectedCountries.length)]
-    
+
     })
 }
 

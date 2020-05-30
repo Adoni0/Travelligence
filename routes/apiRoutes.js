@@ -37,7 +37,20 @@ module.exports = function (app) {
       images: images,
       lang: lang,
       culture: culture,
-      interests: [],
+      interests_details: {
+        food: 0,
+        animal: 0,
+        drink: 0,
+        building: 0,
+        plant: 0,
+        outdoor_mountain: 0,
+        outdoor_city: 0,
+        outdoor_field: 0,
+        outdoor_water: 0,
+        outdoor_oceanbeach: 0,
+        outdoor_stonerock: 0
+      },
+      interests: '',
       associatedCulture: [],
       ip: ip,
       langSetting: langSetting,
@@ -90,7 +103,7 @@ module.exports = function (app) {
         axios.get(`https://api.genderize.io?name=${userProfile.name}&country_id=${userProfile.geo.country}`).then((data) => {
           userProfile.gender = data.data.gender
 
-          var fakeArray = ['https://images.pexels.com/photos/3452554/pexels-photo-3452554.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260', 'https://images.pexels.com/photos/4827/nature-forest-trees-fog.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260']
+          var fakeArray = ['https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/4827/nature-forest-trees-fog.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260']
 
           var uriBase = endpoint + 'vision/v3.0/analyze';
 
@@ -105,49 +118,145 @@ module.exports = function (app) {
                 'ocp-apim-subscription-key': subscriptionKey
               },
               body: {
-                // url: userProfile.images[count]
-                url: fakeArray[count]
+                url: userProfile.images[count]
+                // url: fakeArray[count]
               },
               json: true
             }, function (error, response, body) {
               if (error) throw new Error(error);
-              console.log(`Checked an image`)
-              userProfile.interests.push(body.categories[0].name)
-              console.log(userProfile)
+
+              if (body.categories[0].name.split('_')[0] === 'outdoor') {
+                userProfile.interests_details[body.categories[0].name] += .34
+              } else if (userProfile.interests_details[body.categories[0].name.split('_')[0]] === 0) {
+                userProfile.interests_details[body.categories[0].name.split('_')[0]] += .34
+              }
             })
 
             if (count < userProfile.images.length - 1) {
-              console.log(count)
               count++
               getCategories()
             } else {
-              const imagePath = '/images/countries/'
-              // Using fake data
-              const countryData = {
-                countryName: 'Test Country',
-                countryImage: `${imagePath}sri-lanka.jpg`
+
+              /// LOGIC TO SELECT A COUNTRY ======================================
+              let selectedCountries
+
+              // Filter by Wealth
+              let wealth
+              if (userProfile.wealth <= .34) {
+                wealth = 'economy'
+              } else if (userProfile.wealth <= .67) {
+                wealth = 'moderate'
+              } else {
+                wealth = 'luxury'
               }
-              console.log(countryData)
-              res.render('index', {
-                countryData: countryData
+
+              db.Country.findAll({
+                where: { cost: wealth }
+              }).then((allCountries) => {
+                selectedCountries = allCountries
+
+                console.log('selectedCountries 1============')
+                console.log(allCountries)
+                console.log(selectedCountries)
+
+                // Filter by Interest
+                ////// EX) Country.categories: 'building, outdoor_oceanbeach, outdoor_water'
+                if (selectedCountries.length > 1) {
+                  selectedCountries.forEach((country, index) => {
+                    const countryCategoriesArr = country.categories.split(', ')
+
+                    // // Modify category name in countryCategoriesArr if it's outdoor_ 
+                    // countryCategoriesArr.map((category) => {
+                    //     if (category.includes('outdoor')) {
+                    //         category = category.split('_')[1]
+                    //     }
+                    //     return category
+                    // })
+
+                    if (!countryCategoriesArr.includes(userProfile.interests)) {
+                      selectedCountries.splice(index, 1)
+                    }
+                  })
+                }
+
+                // Filter by Language
+                ///// Willing to go somewhere you don't speak the language?
+                ///// EX) langSetting: 'en-US,en;q=0.9,ja;q=0.8'
+                ///// EX) countryLangs: 'en, ja'
+                if (selectedCountries.length > 1 && !userProfile.lang) {  // if the user says No, remove all countries whose languages don't match the user's langSetting from selectedCountries array
+                  const langSettingArrTemp = userProfile.langSetting.split(',')
+                  const langSettingArr = langSettingArrTemp.map((lang) => {
+                    // Return only first 2 letters of language (en-US => en)
+                    return lang.slice(0, 2).toLowerCase()
+                  })
+                  selectedCountries.forEach((country, index) => {
+                    let includeLang = false
+                    const countryLangs = country.lang.split(', ').map(lang => lang.toLowerCase())
+                    langSettingArr.forEach(langSetting => {
+                      if (countryLangs.includes(langSetting)) {
+                        includeLang = true
+                      }
+                    })
+                    if (!includeLang) {
+                      selectedCountries.splice(index, 1)
+                    }
+                  })
+                }
+
+                // Filter by Culture
+                ///// Would you prefer to explore your own culture?
+                ///// EX) associatedCulture: [ 'JP', '', 'GB' ]
+                if (selectedCountries.length > 1 && userProfile.culture) {  // if the user says Yes, remove all countries which don't match the user's culture
+                  const associatedCultureArr = userProfile.associatedCulture.map((cul) => cul.toLowerCase())
+                  selectedCountries.forEach((country, index) => {
+                    if (!associatedCultureArr.includes(country.code.toLowerCase())) {
+                      selectedCountries.splice(index, 1)
+                    }
+                  })
+                }
+                console.log('selectedCountries final============')
+                console.log(selectedCountries)
+
+                // Choose a country from selected countries array randomly (if there is more than one contry in the array)
+                const destinationDataObj = selectedCountries.length === 1 ? selectedCountries[0] : selectedCountries[Math.floor(Math.random() * selectedCountries.length)]
+
+                // res.json(destinationDataObj)
+
+                console.log('destinationDataObj=====================')
+                console.log(destinationDataObj)
+
+                const destinationName = destinationDataObj.name
+                const destinationImage = destinationDataObj.image
+
+                const imagePath = '/images/countries/'
+                const countryData = {
+                  countryName: destinationName,
+                  countryImage: `${imagePath}${destinationImage}`
+                }
+                console.log(countryData)
+
+
+                setTimeout(() => {
+                  var highestInterest = 0
+                  for (interests in userProfile.interests_details) {
+                    if (userProfile.interests_details[interests] > highestInterest) {
+                      userProfile.interests = interests
+                      console.log('The highest interest is: ' + interests)
+                      highestInterest = userProfile.interests_details[interests]
+                    }
+                  }
+
+                  console.log(userProfile)
+
+                  res.render('index', {
+                    countryData: countryData
+                  })
+                }, 5000)
               })
+              /// LOGIC TO SELECT A COUNTRY END!!!! ======================================
             }
-
           }
-
           getCategories()
-
-
-
-
-
-
-
-
-
-
-
-          // res.redirect('/')
         })
       })
     })
