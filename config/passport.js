@@ -1,24 +1,23 @@
-var db = require("../models");
-var passport = require("passport");
-var GitHubStrategy = require("passport-github").Strategy;
+var db = require('../models')
+var passport = require('passport')
+var GitHubStrategy = require('passport-github').Strategy
 
 passport.use(
   new GitHubStrategy(
     {
-      clientID: process.env["GITHUB_CLIENT_ID"],
-      clientSecret: process.env["GITHUB_CLIENT_SECRET"],
-      callbackURL: "http://localhost:3000/dashboard",
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: 'http://localhost:3000/dashboard'
       // "https://blue-project-2.herokuapp.com/dashboard"
     },
     function (accessToken, refreshToken, profile, cb) {
       db.Admin.findOrCreate({
         id: profile.id,
-        where: { id: profile.username },
+        where: { id: profile.username }
       }).then(() => {
         return cb(null, profile)
       })
 
-      
       // .then((user) => {
       //   // console.log(something)
       //   return cb(user);
@@ -30,15 +29,15 @@ passport.use(
       // return cb(profile.Id)
     }
   )
-);
+)
 
 passport.serializeUser(function (user, cb) {
-  cb(null, user);
-});
+  cb(null, user)
+})
 
 passport.deserializeUser(function (obj, cb) {
-  cb(null, obj);
-});
+  cb(null, obj)
+})
 
 // app.use(passport.initialize());
 // app.use(passport.session());
@@ -70,4 +69,4 @@ passport.deserializeUser(function (obj, cb) {
 //     res.render('profile', { user: req.user });
 //   });
 
-module.exports = passport;
+module.exports = passport
