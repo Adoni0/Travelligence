@@ -1,21 +1,7 @@
 var db = require('../models')
 
 module.exports = function (app) {
-  // const userProfile = {
-  //     name: name,
-  //     images: images,
-  //     lang: lang,
-  //     culture: culture,
-  //     associatedCulture: [],
-  //     ip: ip,
-  //     langSetting: langSetting,
-  //     wealthDetails: {
-  //       age: 0,
-  //       medianIncome: 0
-  //     },
-  //     wealth: 0,
-  //     geo: geoip.lookup('207.97.227.239') // this.ip
-  //   }
+ 
 
   app.post('/api/travelligence/test', function (req, res) {
     const selectedCountries = []

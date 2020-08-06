@@ -18,15 +18,6 @@ passport.use(
         return cb(null, profile)
       })
 
-      // .then((user) => {
-      //   // console.log(something)
-      //   return cb(user);
-      // });
-      // User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      //   return cb(err, user)
-      // })
-      // console.log("Ideally add user to db here.");
-      // return cb(profile.Id)
     }
   )
 )
@@ -39,34 +30,5 @@ passport.deserializeUser(function (obj, cb) {
   cb(null, obj)
 })
 
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-// app.get('/',
-//   function (req, res) {
-//     res.render('home', { user: req.user })
-//   })
-
-// app.get('/login',
-//   function (req, res) {
-//     res.render('login')
-//   })
-
-// app.get('/auth/github',
-//   passport.authenticate('github'))
-
-// app.get('/auth/github/callback',
-//   passport.authenticate('github', { failureRedirect: '/login' }),
-//   function (req, res) {
-//     // Successful authentication, redirect home.
-//     res.redirect('/')
-//     //https://blue-project-2.herokuapp.com/dashboard
-//   })
-
-//   app.get('/profile',
-//   require('connect-ensure-login').ensureLoggedIn(),
-//   function(req, res){
-//     res.render('profile', { user: req.user });
-//   });
 
 module.exports = passport
