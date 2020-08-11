@@ -10,3 +10,11 @@ This App incorporates Javascript, Express, Sequelize, Node Js, Handlebars, passp
 Computer Vision
 
 Microsoft Computer Vision analyzes the users uploaded images and extracts meta information about the image. We use this information to place the image into a category (outdoor_city, outdoor_scenic, food, animal, etc.) in which a group of countries will share.  This is an important aspect of our algorithm to narrow down your place of travel.
+
+NPM package geoip-lite
+
+This npm package grabs the ip address from the users computer, we use this as part of our algorithm to recored the users state of residence.
+
+Agify.io, nationalize.io, and genderize.io
+
+These API's estimate the users age, nationality, and gender based upon their first name. Age is used as part of the wealth algorithm, along with your states medium income, to pair you up with a country in a similar wealth bracket. 
